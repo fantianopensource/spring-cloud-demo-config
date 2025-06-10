@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: service-consumer
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: true
+        ttl: 30s
+        type: caffeine
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000

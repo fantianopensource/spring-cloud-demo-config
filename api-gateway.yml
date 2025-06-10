@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: service-consumer
+          uri: lb://service-consumer
+          predicates:
+            - Path=/api/consumer/**
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 5s
+        pool:
+          type: elastic
+          max-idle-time: 15s
+          max-life-time: 60s
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,gateway,metrics
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}

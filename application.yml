@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    config:
+      fail-fast: true
+    loadbalancer:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
